@@ -1,5 +1,11 @@
 <?php
 
+	/**
+	* @author Ermakov Matthew <mazdaraser.91@gmail.com>
+	* @brief Short link (handler)
+	* @date 17-sep-2021
+	*/
+
 	include_once("functions.php");
 
 	$data = getData($conn, $table);
@@ -15,27 +21,59 @@
 
 	if (count($data) != 0) {
 
+		$flag = '';
+		$key = '';
+
 		foreach ($data as $key => $value) {
 			if ($link != '' && $value->link == $link) {
 				
-				putData($conn, $link);
+				$flag = 'y';
+				$key = $value->key;
+				break;
+
+				
 
 			}else{
 
-				$mess = "Your link: "."<a href='$value->key' target='_blank'>"."http://localhost/".$value->key."</a>";
+				$flag = 'n';
+				$key = $value->key;
 
 			}
 		}
 
+		if ($flag == 'y') {
+			$mess = "Your link: "."<a href='$key' target='_blank'>"."http://localhost/".$key."</a>";
+		}else{
+			
+			putData($conn, $link);
+		}
+
 		$data = getData($conn, $table);
+
+		$flag = '';
 
 		foreach ($data as $key => $v) {
 			if($v->link == $link){
-				$mess = "Your link: "."<a href='$v->key' target='_blank'>"."http://localhost/".$v->key."</a>";
-				dataInFile($data);
+
+				$key = $v->key;
+				$flag = 'y';
+				break;
+
 			}else{
-				$mess = "Your link: "."<a href='$v->key' target='_blank'>"."http://localhost/".$v->key."</a>";
+				$key = $v->key;
+				$flag = 'n';
 			}
+		}
+
+		if ($flag == 'y') {
+
+			$mess = "Your link: "."<a href='$key' target='_blank'>"."http://localhost/".$key."</a>";
+			dataInFile($data);
+
+		}else{
+
+			$mess = "Your link: "."<a href='$key' target='_blank'>"."http://localhost/".$key."</a>";
+
 		}
 		
 		echo $mess;
@@ -48,7 +86,10 @@
 
 		printData($data);
 		
-		$mess = "Your link: "."<a href='$data[0]->key' target='_blank'>"."http://localhost/".$data[0]->key."</a>";
+		foreach ($data as $key => $value) {
+			$mess = "Your link: "."<a href='$value->key' target='_blank'>"."http://localhost/".$value->key."</a>";
+		}
+		
 		dataInFile($data);
 		
 		echo $mess;

@@ -9,16 +9,26 @@
 </head>
 <body>
 
+	<h1>
+		Онлайн сокращатель ссылок
+	</h1>
+
 	<form method="post" action="form.php">
 		
-		<input type="text" name="link"><br>
+		<label>
+			Enter URL here: <input type="text" name="link">
+		</label><br><br>
 		<button type="submit">
 			Get link
 		</button><br>
 
 	</form>
 
-	<div id="result"></div>
+	<div id="result">
+
+		<!-- LINK WILL APPEAR HERE -->
+
+	</div>
 
 	<script src="script/script.js"></script>
 

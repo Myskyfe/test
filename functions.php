@@ -1,8 +1,15 @@
 <?php
 
 	/**
+	* @author Ermakov Matthew <mazdaraser.91@gmail.com>
+	* @brief Short link (functions file)
+	* @date 17-sep-2021
+	*/
+
+	/**
 	 * LINK REDIRECTION
 	*/
+
 	class LinkRedir 
 	{
 		public $link;
@@ -32,7 +39,7 @@
 	else
 		$mess = "Connection error";
 
-	//peforms all data of array
+	//prints all data of array
 	function printData($arr){
 
 		echo "<pre>";
